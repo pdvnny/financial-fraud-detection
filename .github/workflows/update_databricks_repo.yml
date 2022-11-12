@@ -1,0 +1,27 @@
+name: Update Databricks Repos with Repos 2.0 API
+
+on:
+	push:
+		branches: [ "dev" ]
+
+
+jobs:
+	
+	# A single job that is updating the Databricks repos for the project
+	update-databricks-repo:
+
+		runs-on: ubuntu-latest
+
+		steps:
+			- name: Git checkout
+			  uses: actions/checkout@v3
+
+			- name: Get updated branch name
+			  uses: echo "running on branch ${GITHUB_REF##*/}"
+
+			- name: Use Repos API to update Databricks repo
+			  uses: |
+          curl -H "Content-Type: application/json" -X POST -d {"branch": "dev"} https://dbc-1f875879-7090.cloud.databricks.com/api/2.0/repos/${GITHUB_REF##*/}/patch 
+
+        # Template: https://<databricks-instance>/api/2.0/repos/${repo_id}
+        # Template to POST json data: curl -H "Content-Type: application/json" -X POST -d '{"user":"bob","pass":"123"}' http://URL/
