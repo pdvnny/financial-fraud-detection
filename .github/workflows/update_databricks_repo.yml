@@ -9,12 +9,10 @@ on:
 jobs:
   
   update:
-		
-		runs-on: ubuntu-latest
-		
-		steps:
-			- name: Git checkout
-			  uses: actions/checkout@v3
-
-			- name: Get updated branch name
-			  uses: echo "running on branch ${GITHUB_REF##*/}"
+  	runs-on: ubuntu-latest
+	steps:
+	- name: Git checkout
+	  uses: actions/checkout@v3
+	
+	- name: Get updated branch name
+	  uses: echo "running on branch ${GITHUB_REF##*/}"
