@@ -2,16 +2,18 @@ name: Update Databricks Repos with Repos API
 
 on:
   push:
-    branches:
-      - dev
-
+    branches: [ dev ]
 
 jobs:
-  
+
   build:
-  	runs-on: ubuntu-latest
-	steps:
-		- name: Git checkout
-	  	  uses: actions/checkout@v3
-		- name: Get updated branch name
-	  	  uses: echo "running on branch ${GITHUB_REF##*/}"
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
