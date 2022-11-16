@@ -6,37 +6,13 @@ on:
 
 
 jobs:
-	# A single job that is updating the Databricks repos for the project
 	update-databricks-repo:
 
 		runs-on: ubuntu-latest
 
 		steps:
 			- name: Git checkout
-			  uses: actions/checkout@v3  # provided by GitHub Actions
+			  uses: actions/checkout@v3
 
 			- name: Get updated branch name
 			  uses: echo "running on branch ${GITHUB_REF##*/}"
-			  
-			- name: Setup Python              # Ref for this section - https://github.com/cicirello/python-github-action-template/blob/main/.github/workflows/build.yml
-			  uses: actions/setup-python@v4   # provided by GitHub Actions
-			  with:
-			    python-version: '3.9'
-			
-			- name: Setup databricks-cli      # Ref for this section - https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-			  run: |
-			      python -m pip install --upgrade pip
-			      pip install databricks-cli --upgrade
-			  
-
-			- name: Setup successful
-			  run: echo "Setup Successful!"
-			  
-			  
-			  
-			  
-			  
-			  # uses curl -H "Content-Type: application/json" -X POST -d {"branch": "dev"} https://dbc-1f875879-7090.cloud.databricks.com/api/2.0/repos/${GITHUB_REF##*/}/patch 
-
-        # Template: https://<databricks-instance>/api/2.0/repos/${repo_id}
-        # Template to POST json data: curl -H "Content-Type: application/json" -X POST -d '{"user":"bob","pass":"123"}' http://URL/
