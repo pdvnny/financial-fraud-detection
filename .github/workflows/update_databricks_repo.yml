@@ -1,12 +1,11 @@
-name: Update Databricks Repos with Repos 2.0 API
+name: Update Databricks Repos with Repos API
 
 on:
 	push:
-		branches: [ "dev" ]
+		branches: [ dev ]
 
 
 jobs:
-	
 	# A single job that is updating the Databricks repos for the project
 	update-databricks-repo:
 
