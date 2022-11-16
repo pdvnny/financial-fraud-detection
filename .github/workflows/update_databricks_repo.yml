@@ -1,8 +1,6 @@
 name: Update Databricks Repos with Repos API
 
-on:
-	push:
-		branches: [ dev ]
+on: [push]
 
 
 jobs:
