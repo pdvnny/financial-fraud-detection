@@ -1,13 +1,16 @@
 name: Update Databricks Repos with Repos API
 
-on: [push]
+on:
+  push:
+    branches:
+      - dev
 
 
 jobs:
-	update-databricks-repo:
-
+  
+  update:
+    name: Update databricks repo
 		runs-on: ubuntu-latest
-
 		steps:
 			- name: Git checkout
 			  uses: actions/checkout@v3
