@@ -2,7 +2,10 @@ name: Update Databricks Repos with Repos API
 
 on:
   push:
-    branches: [ dev ]
+    branches:
+    - dev
+    - staging
+    - main
 
 jobs:
 
@@ -25,3 +28,8 @@ jobs:
     
     - name: Setup successful
       run: echo "Setup successful"
+      
+    - name: Get Databricks repos
+      run: |
+        cp config/.netrc ~/.netrc
+        curl --netrc -X GET https://dbc-1f875879-7090.cloud.databricks.com/api/2.0/repos
