@@ -1,5 +1,6 @@
 # Directories that do not have relevant content
 explore/
+.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
