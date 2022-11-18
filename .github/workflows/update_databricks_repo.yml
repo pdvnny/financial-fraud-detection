@@ -32,4 +32,4 @@ jobs:
         cp config/.netrc ~/.netrc
         echo "Current repository ${{ github.repository }}
         echo "Current branch ${GITHUB_REF_NAME}"
-        curl --netrc -X PATCH -H "Content-Type: application/json" -H "Accept: application/json" -d {"branch":"dev"} https://dbc-1f875879-7090.cloud.databricks.com/api/2.0/repos/financial-fraud-dev/financial-fraud-detection
+        curl --netrc -X PATCH -H "Content-Type: application/json" -H "Accept: application/json" -d '{"branch":"dev"}' https://dbc-1f875879-7090.cloud.databricks.com/api/2.0/repos/financial-fraud-dev/financial-fraud-detection
