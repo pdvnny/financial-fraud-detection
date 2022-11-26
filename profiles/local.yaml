@@ -1,6 +1,12 @@
 #
 # FIXME::REQUIRED: set an MLflow experiment name to track recipe executions and artifacts.
 #
+#
+# --------- I don't think you want to use this file --------
+#
+# I believe this file is designed to be run with MLflow on a local machine
+# However, I think have to provide more detail to connect a local machine to our databricks workspace.
+#
 experiment:
   name: "financial_fraud_detection"
   tracking_uri: "dbfs:/databricks/mlflow-tracking/3794168472159363"
@@ -21,7 +27,7 @@ INGEST_CONFIG:
   #                  formats are: parquet, spark_sql, delta.
   using: "spark_sql"
   # FIXME::OPTIONAL: Specify the training and evaluation data location.
-  location: "hive_metastore.default.synthetic_financial_fraud_data_csv"
+  # location: "hive_metastore.default.synthetic_financial_fraud_data_csv"
   
   # Not sure if I have defined location correctly here
 

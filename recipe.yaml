@@ -42,7 +42,9 @@ steps:
     #
     #  FIXME::OPTIONAL: Specifies the method to use to "post-process" the split datasets. Note that
     #                   arbitrary transformations should go into the transform step.
-    post_split_filter_method: create_dataset_filter
+    
+    post_split_filter_method: create_dataset_filter # balancing the number of pos/neg samples in the dataset
+    
   transform:
     #
     #  FIXME::OPTIONAL: Specifies the method that defines an sklearn-compatible transformer, which
