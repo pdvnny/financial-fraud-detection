@@ -28,7 +28,7 @@ jobs:
         run: |
           cp config/.netrc ~/.netrc
           echo "Current repository ${{ github.repository }}"
-          curl --netrc -X PATCH \
+          curl --netrc -X POST \
               -H "Content-Type: application/json"  \
               -H "Accept: application/json" \
               -d {"job_id": 244203842649506 } \
