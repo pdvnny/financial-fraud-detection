@@ -1,0 +1,35 @@
+name: Update Databricks Repos with Repos API
+
+on:
+  push:
+    branches:
+    - dev
+
+jobs:
+
+  update:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Setup databricks-cli
+      run: |
+          python -m pip install --upgrade pip
+          pip install databricks-cli --upgrade
+    
+    - name: Setup successful
+      run: echo "Setup successful"
+      
+    - name: Update Databricks repo
+      run: |
+        cp config/.netrc ~/.netrc
+        echo "Current repository ${{ github.repository }}"
+        echo "Current branch ${GITHUB_REF_NAME}"
+        curl --netrc -X PATCH -H "Content-Type: application/json" -H "Accept: application/json" -d '{"branch":"dev"}' https://dbc-1f875879-7090.cloud.databricks.com/api/2.0/repos/62254856056825
