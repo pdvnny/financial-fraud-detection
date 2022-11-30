@@ -28,8 +28,5 @@ jobs:
         run: |
           cp config/.netrc ~/.netrc
           echo "Current repository ${{ github.repository }}"
-          curl --netrc -X POST \
-              -H "Content-Type: application/json"  \
-              -H "Accept: application/json" \
-              -d {"job_id": 244203842649506 } \
-              https://dbc-1f875879-7090.cloud.databricks.com/api/2.1/jobs/run-now
+          curl --netrc -X GET https://dbc-1f875879-7090.cloud.databricks.com/api/2.1/jobs/list
+          curl --netrc -X POST https://dbc-1f875879-7090.cloud.databricks.com/api/2.1/jobs/run-now -H "Content-Type: application/json" -d {"job_id": 244203842649506 }
