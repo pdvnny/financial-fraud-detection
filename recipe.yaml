@@ -54,7 +54,8 @@ steps:
     #
     # FIXME::REQUIRED: Specifies the method to use for training. Options are "automl/flaml" for
     #                  AutoML training or "custom" for user-defined estimators.
-    using: "custom"
+    using: custom
+    estimator_method: estimator_fn
   evaluate:
     #
     # FIXME::OPTIONAL: Sets performance thresholds that a trained model must meet in order to be

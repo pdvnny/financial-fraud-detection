@@ -15,7 +15,7 @@ FIXES!
 (1) Need to start by reformatting the input to match the template here: https://github.com/mlflow/recipes-classification-template/blob/main/steps/split.py
 """
 
-def create_dataset_filter(train_df: DataFrame, validation_df: DataFrame, test_df: DataFrame) -> Series(bool):
+def create_dataset_filter(dataset: DataFrame) -> Series(bool):
     """
     Mark rows of the split datasets to be additionally filtered. This function will be called on
     the training, validation, and test datasets.
@@ -26,13 +26,20 @@ def create_dataset_filter(train_df: DataFrame, validation_df: DataFrame, test_df
     """
     # FIXME::OPTIONAL: implement post-split filtering on the dataframes, such as data cleaning.
     
-    dfn = train_df.loc[train_df.isFraud == 0, :]
-    dfy = train_df.loc[train_df.isFraud == 1, :]
+    """
+    Skipping this method for now ... it doesn't allow me to balance how I wanted to
     
-    N = len(train_df)
+    dfn = dataset.loc[dataset.isFraud == 0, :]
+    dfy = dataset.loc[dataset.isFraud == 1, :]
+    
+    N = len(dataset)
     y = len(dfy)
     p = y/N    # p = fraction of transactions that are fraudulent
-    train_bal_df = dfn.sample(frac=p).union(dfy)
+    """
+    
+        
+    
+    # Doesn't work unfortunately because we need to return a logical (i.e., True/False) Series 
+    # train_bal_df = dfn.sample(frac=p).union(dfy)
 
-    #return Series(True, index=dataset.index)
-    return train_bal_df, validation_df, test_df
+    return Series(True, index=dataset.index)

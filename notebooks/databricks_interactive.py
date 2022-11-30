@@ -39,3 +39,20 @@ r.run("split")
 
 training_data = r.get_artifact("training_data")
 training_data.describe()
+
+# COMMAND ----------
+
+r.run("transform")
+
+# COMMAND ----------
+
+validation_data = r.get_artifact("validation_data")
+validation_data.describe()
+
+# COMMAND ----------
+
+r.run("train")
+
+# COMMAND ----------
+
+r.run("")

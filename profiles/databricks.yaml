@@ -3,7 +3,7 @@
 #                  experiment name must be a valid path in the workspace.
 #
 experiment:
-  name: "financial-fraud-detection"
+  name: "/Users/pgdunn@bu.edu/financial-fraud-detection"
 
 model_registry:
 # FIXME::OPTIONAL: Set the registry server URI, useful if you have a registry server different
@@ -21,7 +21,7 @@ INGEST_CONFIG:
   using: "spark_sql"
   # FIXME::OPTIONAL: Specify the training and evaluation data location. This is usually a DBFS
   # location ("dbfs:/...") or a SQL table ("SCHEMA.TABLE").
-  location: "hive_metastore.default.synthetic_financial_fraud_data_csv"
+  location: "hive_metastore.default.synthetic_financial_fraud_data_stage_2"
 
 # INGEST_SCORING_CONFIG:
 #   For different options please read: https://github.com/mlflow/recipes-classification-template#batch-scoring

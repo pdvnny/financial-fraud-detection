@@ -17,14 +17,30 @@ def estimator_fn(estimator_params: Dict[str, Any] = None) -> Any:
     The estimator's input and output signatures should be compatible with scikit-learn
     estimators.
     
-    The estimator will be a PySpark `DecisionTreeClassifier`
     """
+    from sklearn.tree import DecisionTreeClassifier
+    
+    # Optimial parameters based on previous work
+    max_bins = 10
+    max_depth = 5
+    model = DecisionTreeClassifier(max_depth=max_depth, max_leaf_nodes=max_bins)
+    
+    return model
+
+
+"""
+    ** This approach did not work ... I'll have to changes things up later **
+    
+    
+    # The estimator will be a PySpark `DecisionTreeClassifier`
+    
+
     from pyspark.ml.classification import DecisionTreeClassifier
     from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
     from pyspark.ml.evaluation import BinaryClassificationEvaluator
     
     evaluatorAUC = BinaryClassificationEvaluator(labelCol = 'label', rawPredcitionCol = 'prediction', metricName = 'areaUnderROC')
-t
+    
     dt = DecisionTreeClassifier(**estimator_params)  # TO DO: double check that this setup works
     
     paramGrid = (
@@ -40,6 +56,4 @@ t
         evaluator = evaluatorPR,
         numFolds = 3
     )
-    
-    
-    return cv
+"""
