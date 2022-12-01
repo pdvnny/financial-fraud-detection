@@ -39,7 +39,7 @@ jobs:
       - name: Run training on databricks
         run: python databricks-triggers/train_eval.py
 
-  evaluate:
+  model_eval:
     runs-on: ubuntu-latest
 
     steps:
@@ -54,7 +54,6 @@ jobs:
           export DATABRICKS_HOST="https://dbc-1f875879-7090.cloud.databricks.com"
           export DATABRICKS_TOKEN="dapi45c8fa00829d08991bbb9ae455da52a5"
           python -m pip install --upgrade pip
-          pip install pytest
 
       - name: Test model performance before approving training procedure
         run: python databricks-triggers/check_model.py

@@ -3,24 +3,15 @@ Parker Dunn (pgdunn@bu.edu)
 
 Created Dec 1, 2022
 
-------------- DEPRECATED ON DEC 1 2022 ------------
-Reason:
-I redefined the work flow a little so that I don't
-really need to retrieve model information from Databricks.
-The CI pipeline will basically automatically detect
-if there is a problem with the model training procedure.
-
-In a separate workflow, I will move the trained model to staging
-using the MLflow API
-__________________________________________________
-
-GOAL: Fetch the most recent MLflow run saved.
-      I am working with a hardcoded experiment ID for now!
+GOALS:
+(1) Check that "run_info.json" indicates that the model passed
+(2) Change model status in Databricks to staged
 """
 
 import os
 import requests
 import json
+
 from databricks_cli.sdk.api_client import ApiClient
 from databricks_cli.dbfs.api import DbfsApi
 # https://github.com/databricks/databricks-cli/blob/main/databricks_cli/dbfs/api.py
@@ -37,9 +28,13 @@ Retrieve data about the most recent experiment run using DBFS API
 ALTERNATIVE
 
 I created a dbfs location to track model training results!!!
-Access the run corresponding with 
+Access the run corresponding with run_id provided.
 
 """
+
+with open('jobs_info.json', 'r') as local_f:
+    data = json.load(local_f)
+RUN_ID = data["run_id"]
 
 api_client = ApiClient(
     host=os.getenv("DATABRICKS_HOST"),
@@ -49,8 +44,11 @@ api_client = ApiClient(
 PATH = DbfsPath("dbfs:/FileStore/run_tracking/")
 
 dbfs_api = DbfsApi(api_client)
-files_list = dbfs_api.list_files(PATH)
-print(files_list)
+dbfs_api.get_file(PATH, "db_run.json", overwrite=True)
+
+with open("db_run.json", 'r') as db_f:
+    run_data = json.load(db_f)
+print(run_data["pass"])
 
 """
 SECOND
