@@ -1,0 +1,38 @@
+name: This is an experiment using the databricks/run-notebook@v0 action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        
+      - name: Get databricks access
+        run: bash databricks-triggers/export_creds.sh
+        
+      - name: Setup python
+        uses: actions/setup-python@v2
+        
+      - name: Trigger test file as an experiment
+        uses: databricks/run-notebook@v0
+        with:
+          local-notebook-path: databricks-triggers/test
+          new-cluster-json: >
+            {
+              "num_workers": 1,
+              "spark_version": "11.2.x-cpu-ml-scala2.12",
+              "node_id_type": "i3.xlarge"
+            }
+          # Grant all users view perimission on the notebook results
+          access-control-list-json: >
+            [
+              {
+                "group_name":"users",
+                "permission_level":"CAN_VIEW"
+              }
+            ]
