@@ -73,11 +73,6 @@ print(f"Area under the Curve (AUC) on TEST data: {auc_test:.3f}")
 
 # COMMAND ----------
 
-# Needed when running this script as a job
-!pip install mlflow
-
-# COMMAND ----------
-
 import mlflow
 import mlflow.spark
 
