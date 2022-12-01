@@ -1,8 +1,7 @@
 name: This is an experiment using the databricks/run-notebook@v0 action
 
 on:
-  push:
-    branches: [ "dev" ]
+  workflow_dispatch
 
 jobs:
   
