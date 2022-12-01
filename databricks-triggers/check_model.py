@@ -42,7 +42,7 @@ api_client = ApiClient(
     token=os.getenv("DATABRICKS_TOKEN")
 )
 
-PATH = DbfsPath("dbfs:/FileStore/run_tracking/")
+PATH = DbfsPath("dbfs:/FileStore/run_tracking/"+RUN_ID+".json")
 
 dbfs_api = DbfsApi(api_client)
 dbfs_api.get_file(PATH, "db_run.json", overwrite=True)
