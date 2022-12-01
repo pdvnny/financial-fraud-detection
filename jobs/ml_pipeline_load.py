@@ -11,6 +11,7 @@ The code in this file loads data needed for ML tasks
 
 df = spark.table("hive_metastore.default.synthetic_financial_fraud_data_stage_2")
 
+
 # COMMAND ----------
 
 # display(df)

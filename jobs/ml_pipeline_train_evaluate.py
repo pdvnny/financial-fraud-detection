@@ -105,6 +105,8 @@ import datetime
 
 date = datetime.datetime.now().date()
 
+model_info["pass"] = (auc_test > 0.9)
+
 # PATH = f"dbfs:/FileStore/run_tracking/{model_info['run_id']}_{date}.json"
 PATH = f"dbfs:/FileStore/run_tracking/{model_info['run_id']}.json"
 
