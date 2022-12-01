@@ -55,6 +55,6 @@ display(train.groupBy("label").count())
 
 # Store tables for reference (maybe usage at some point)
 
-train.write.saveAsTable("balanced_training_data")
-test_df.write.saveAsTable("test_data")
-train.groupBy("label").count().write.saveAsTable("train_data_distribution")
+train.write.mode("overwrite").saveAsTable("balanced_training_data")
+test_df.write.mode("overwrite").saveAsTable("test_data")
+train.groupBy("label").count().write.mode("overwrite").saveAsTable("train_data_distribution")
