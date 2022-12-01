@@ -45,8 +45,13 @@ while status["state"]["life_cycle_state"] != "TERMINATED":
     status = runs_api.get_run(run_id=train_eval_run["run_id"])
 print(status)
 
-with open("run_info.json","w") as f:
-    data = json.dumps({
-        "run_id": train_eval_run["run_id"]
-    })
-    f.write(data)
+# with open("run_info.json","w") as f:
+#     data = json.dumps({
+#         "run_id": train_eval_run["run_id"]
+#     })
+#     f.write(data)
+
+# --------------- EXPORTING THE RUN_ID RATHER THAN WRITING TO A FILE --------------
+
+os.environ['RUN_ID'] = train_eval_run["run_id"]
+print(train_eval_run["run_id"])

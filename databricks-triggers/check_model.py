@@ -32,9 +32,10 @@ Access the run corresponding with run_id provided.
 
 """
 
-with open('jobs_info.json', 'r') as local_f:
-    data = json.load(local_f)
-RUN_ID = data["run_id"]
+# with open('jobs_info.json', 'r') as local_f:
+#     data = json.load(local_f)
+# RUN_ID = data["run_id"]
+RUN_ID = os.getenv("RUN_ID")
 
 api_client = ApiClient(
     host=os.getenv("DATABRICKS_HOST"),
