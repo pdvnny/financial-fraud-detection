@@ -77,13 +77,53 @@ import mlflow
 import mlflow.spark
 
 mlflow_experiment_id = 3794168472159363
+model_info = {}
 
 with mlflow.start_run(experiment_id = mlflow_experiment_id) as run:
     # print(run.info.run_id) THIS WORKS! # https://www.mlflow.org/docs/latest/python_api/mlflow.html
+    model_info["run_id"] = run.info.run_id
     # Log metrics
     mlflow.log_metric("PR", pr_test)
     mlflow.log_metric("AUC", auc_test)
-    
+    model_info["auc"] = auc_test
+    model_info["pr"] = pr_test
     # Log model
     # add feature in code above that allows me to track the base model too (i.e., a fit "dt" model)
     mlflow.spark.log_model(cv_model, "trained_model")
+
+# COMMAND ----------
+
+# import os
+# os.listdir("/dbfs/databricks") # "mlflow-registry", "mlflow-tracking"
+# os.listdir("/dbfs/") # "FileStore", "databricks", "databricks-datasets", "databricks-results", "tmp", "user"
+
+# dbutils.fs.ls(".")
+
+# Dump data to JSON file
+import json
+import datetime
+
+date = datetime.datetime.now().date()
+
+# PATH = f"dbfs:/FileStore/run_tracking/{model_info['run_id']}_{date}.json"
+PATH = f"dbfs:/FileStore/run_tracking/{model_info['run_id']}.json"
+
+dbutils.fs.put(PATH, json.dumps(model_info))
+
+# COMMAND ----------
+
+num_runs = len(dbutils.fs.ls("dbfs:/FileStore/run_tracking"))
+print(num_runs)
+
+# COMMAND ----------
+
+# Register model if AUC > 0.9
+
+if (auc_test > 0.9):
+    # register model
+    result = mlflow.register_model(f"runs:/{model_info['run_id']}/trained_model", f"model_{num_runs}_{date}")
+else:
+    raise ValueError("Model performance not sufficient.")
+    
+    
+# MORE ON MODEL REGISTRY: https://docs.databricks.com/machine-learning/manage-model-lifecycle/index.html#register-a-model-using-the-api
