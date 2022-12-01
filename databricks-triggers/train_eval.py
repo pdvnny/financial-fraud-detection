@@ -7,7 +7,7 @@ GOAL: Create and run a job in databricks using the Jobs 2.1 API
 """
 
 import time
-
+import json
 import os
 from databricks_cli.sdk.api_client import ApiClient
 # for working with jobs
@@ -40,7 +40,13 @@ train_eval_run = jobs_api.run_now(66715473196129,
 status = runs_api.get_run(run_id=train_eval_run["run_id"])
 print(status)
 while status["state"]["life_cycle_state"] != "TERMINATED":
-    print("waiting")
+    # print("waiting")
     time.sleep(30)
     status = runs_api.get_run(run_id=train_eval_run["run_id"])
 print(status)
+
+with open("run_info.json","w") as f:
+    data = json.dumps({
+        "run_id": train_eval_run["run_id"]
+    })
+    f.write(data)
