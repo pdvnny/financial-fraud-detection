@@ -79,6 +79,7 @@ import mlflow.spark
 mlflow_experiment_id = 3794168472159363
 
 with mlflow.start_run(experiment_id = mlflow_experiment_id) as run:
+    # print(run.info.run_id) THIS WORKS! # https://www.mlflow.org/docs/latest/python_api/mlflow.html
     # Log metrics
     mlflow.log_metric("PR", pr_test)
     mlflow.log_metric("AUC", auc_test)
