@@ -53,5 +53,5 @@ print(status)
 
 # --------------- EXPORTING THE RUN_ID RATHER THAN WRITING TO A FILE --------------
 
-os.environ['RUN_ID'] = str(train_eval_run["run_id"])
-print(train_eval_run["run_id"])
+# os.environ['RUN_ID'] = str(train_eval_run["run_id"])
+# print(train_eval_run["run_id"])

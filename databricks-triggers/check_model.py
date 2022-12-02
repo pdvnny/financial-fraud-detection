@@ -35,17 +35,19 @@ Access the run corresponding with run_id provided.
 # with open('jobs_info.json', 'r') as local_f:
 #     data = json.load(local_f)
 # RUN_ID = data["run_id"]
-RUN_ID = os.getenv("RUN_ID")
+# RUN_ID = os.getenv("RUN_ID")
 
 api_client = ApiClient(
     host=os.getenv("DATABRICKS_HOST"),
     token=os.getenv("DATABRICKS_TOKEN")
 )
 
-PATH = DbfsPath("dbfs:/FileStore/run_tracking/"+RUN_ID+".json")
+PATH = DbfsPath("dbfs:/FileStore/run_tracking/model_dev.json")
 
 dbfs_api = DbfsApi(api_client)
 dbfs_api.get_file(PATH, "db_run.json", overwrite=True)
+
+os.listdir(".")
 
 with open("db_run.json", 'r') as db_f:
     run_data = json.load(db_f)
