@@ -65,7 +65,7 @@ GOAL: Get run information from file
 HOST = os.getenv('DATABRICKS_HOST')
 
 data = {
-    "archive_exisiting_version": True,
+    "archive_existing_version": True,
     "comment": "Model passed CI tests",
     "name": run_data["name"],
     "stage": "Staging",
@@ -73,8 +73,9 @@ data = {
 }
 
 ENDPOINT = HOST + "/api/2.0/mlflow/databricks/model-versions/transition-stage"
+print(ENDPOINT)
 response = requests.post(ENDPOINT, json=data)
-
+print(response)
 response_dict = response.json()
 print(response_dict)
 
