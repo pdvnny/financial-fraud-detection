@@ -106,7 +106,7 @@ date = datetime.datetime.now().date()
 # COMMAND ----------
 
 # Register model if AUC > 0.9
-model_name = f"model_{num_runs}_{date}"
+model_name = f"model_{model_info['run_id']}_{date}"
 
 if (auc_test > 0.9):
     # register model
@@ -114,7 +114,7 @@ if (auc_test > 0.9):
 else:
     raise ValueError("Model performance not sufficient.")
     
-    
+
 # MORE ON MODEL REGISTRY: https://docs.databricks.com/machine-learning/manage-model-lifecycle/index.html#register-a-model-using-the-api
 
 # COMMAND ----------
@@ -135,4 +135,4 @@ model_info["name"] = model_name
 # PATH = f"dbfs:/FileStore/run_tracking/{model_info['run_id']}.json"
 PATH = f"dbfs:/FileStore/run_tracking/model_dev.json"
 
-dbutils.fs.put(PATH, json.dumps(model_info))
+dbutils.fs.put(PATH, json.dumps(model_info), True)
