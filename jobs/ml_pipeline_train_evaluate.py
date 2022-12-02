@@ -108,7 +108,8 @@ date = datetime.datetime.now().date()
 model_info["pass"] = (auc_test > 0.9)
 
 # PATH = f"dbfs:/FileStore/run_tracking/{model_info['run_id']}_{date}.json"
-PATH = f"dbfs:/FileStore/run_tracking/{model_info['run_id']}.json"
+# PATH = f"dbfs:/FileStore/run_tracking/{model_info['run_id']}.json"
+PATH = f"dbfs:/FileStore/run_tracking/model_dev.json"
 
 dbutils.fs.put(PATH, json.dumps(model_info))
 
