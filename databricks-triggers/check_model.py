@@ -51,7 +51,7 @@ os.listdir(".")
 
 with open("db_run.json", 'r') as db_f:
     run_data = json.load(db_f)
-print(run_data["pass"])
+print(run_data)
 
 """
 SECOND
