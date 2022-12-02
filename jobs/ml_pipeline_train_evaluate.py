@@ -93,6 +93,32 @@ with mlflow.start_run(experiment_id = mlflow_experiment_id) as run:
 
 # COMMAND ----------
 
+num_runs = len(dbutils.fs.ls("dbfs:/FileStore/run_tracking"))
+print(num_runs)
+
+# COMMAND ----------
+
+import json
+import datetime
+
+date = datetime.datetime.now().date()
+
+# COMMAND ----------
+
+# Register model if AUC > 0.9
+model_name = f"model_{num_runs}_{date}"
+
+if (auc_test > 0.9):
+    # register model
+    result = mlflow.register_model(f"runs:/{model_info['run_id']}/trained_model", model_name)
+else:
+    raise ValueError("Model performance not sufficient.")
+    
+    
+# MORE ON MODEL REGISTRY: https://docs.databricks.com/machine-learning/manage-model-lifecycle/index.html#register-a-model-using-the-api
+
+# COMMAND ----------
+
 # import os
 # os.listdir("/dbfs/databricks") # "mlflow-registry", "mlflow-tracking"
 # os.listdir("/dbfs/") # "FileStore", "databricks", "databricks-datasets", "databricks-results", "tmp", "user"
@@ -100,33 +126,13 @@ with mlflow.start_run(experiment_id = mlflow_experiment_id) as run:
 # dbutils.fs.ls(".")
 
 # Dump data to JSON file
-import json
-import datetime
 
-date = datetime.datetime.now().date()
 
 model_info["pass"] = (auc_test > 0.9)
+model_info["name"] = model_name
 
 # PATH = f"dbfs:/FileStore/run_tracking/{model_info['run_id']}_{date}.json"
 # PATH = f"dbfs:/FileStore/run_tracking/{model_info['run_id']}.json"
 PATH = f"dbfs:/FileStore/run_tracking/model_dev.json"
 
 dbutils.fs.put(PATH, json.dumps(model_info))
-
-# COMMAND ----------
-
-num_runs = len(dbutils.fs.ls("dbfs:/FileStore/run_tracking"))
-print(num_runs)
-
-# COMMAND ----------
-
-# Register model if AUC > 0.9
-
-if (auc_test > 0.9):
-    # register model
-    result = mlflow.register_model(f"runs:/{model_info['run_id']}/trained_model", f"model_{num_runs}_{date}")
-else:
-    raise ValueError("Model performance not sufficient.")
-    
-    
-# MORE ON MODEL REGISTRY: https://docs.databricks.com/machine-learning/manage-model-lifecycle/index.html#register-a-model-using-the-api
