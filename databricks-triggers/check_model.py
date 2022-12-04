@@ -67,7 +67,7 @@ TOKEN = os.getenv('DATABRICKS_TOKEN')
 
 HEADER = {'Authorization': f'Bearer {TOKEN}'}
 data = {
-    "archive_existing_version": True,
+    "archive_existing_versions": True,
     "comment": "Model passed CI tests",
     "name": run_data["name"],
     "stage": "Staging",
