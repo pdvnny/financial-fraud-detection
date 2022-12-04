@@ -37,7 +37,7 @@ loaded_model = mlflow.spark.load_model(logged_model)
 
 # Perform inference via model.transform()
 predictions = loaded_model.transform(sample)
-display(predicitions.select("prediction"))
+display(predictions.select("prediction"))
 
 # COMMAND ----------
 
