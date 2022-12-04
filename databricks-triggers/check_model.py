@@ -63,7 +63,9 @@ I'm going to try to configure a direct GET/POST requests.
 GOAL: Get run information from file
 """
 HOST = os.getenv('DATABRICKS_HOST')
+TOKEN = os.getenv('DATABRICKS_TOKEN')
 
+HEADER = {'Authorization': f'Bearer {TOKEN}'}
 data = {
     "archive_existing_version": True,
     "comment": "Model passed CI tests",
@@ -74,7 +76,7 @@ data = {
 
 ENDPOINT = HOST + "/api/2.0/mlflow/databricks/model-versions/transition-stage"
 print(ENDPOINT)
-response = requests.post(ENDPOINT, json=data)
+response = requests.post(ENDPOINT, json=data, headers=HEADER)
 print(response)
 response_dict = response.json()
 print(response_dict)
