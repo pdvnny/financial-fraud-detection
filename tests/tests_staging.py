@@ -78,3 +78,7 @@ class test_ut:
 print(test_tableExists())
 print(test_columnExists())
 print(test_numRowsInColumnForValue())
+
+# COMMAND ----------
+
+dbutils.notebook.exit(f"{test_tableExists()} {test_columnExists()} {test_numRowsInColumnForValue()}")
