@@ -82,4 +82,5 @@ print(unitTests.test_numRowsInColumnForValue())
 
 # COMMAND ----------
 
-dbutils.notebook.exit(unitTests.test_tableExists() and unitTests.test_columnExists() and unitTests.test_numRowsInColumnForValue())
+testResult = unitTests.test_tableExists() and unitTests.test_columnExists() and unitTests.test_numRowsInColumnForValue()
+dbutils.notebook.exit(f"{testResult}")
