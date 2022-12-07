@@ -27,3 +27,35 @@ api_client = ApiClient(
 
 jobs_api = JobsApi(api_client)  # https://github.com/databricks/databricks-cli/blob/main/databricks_cli/jobs/api.py
 runs_api = RunsApi(api_client)  # https://github.com/databricks/databricks-cli/blob/main/databricks_cli/runs/api.py
+
+# --------------- TRIGGER UNIT TESTS -----------------
+# Run a single job: https://docs.databricks.com/dev-tools/api/latest/jobs.html#operation/JobsRunNow
+deployment_run = jobs_api.run_now(824332610962496,
+                                  jar_params=None,
+                                  notebook_params=None,
+                                  python_params=None,
+                                  spark_submit_params=None)
+
+# Returns:
+# 'run_id' and 'number_in_job'
+# print(unit_tests_run)
+
+# -------------- GET RESULTS OF JOB -------------------
+# Get job results: https://docs.databricks.com/dev-tools/api/latest/jobs.html#operation/JobsRunsGet
+
+run_results = runs_api.get_run_output(deployment_run["run_id"])
+status = run_results['metadata']['state']['life_cycle_state']
+while status == 'PENDING':
+    time.sleep(2)
+    run_results = runs_api.get_run_output(unit_tests_run["run_id"])
+    status = run_results['metadata']['state']['life_cycle_state']
+
+print(status)
+
+while status == 'RUNNING':
+    time.sleep(2)
+    run_results = runs_api.get_run_output(unit_tests_run["run_id"])
+    status = run_results['metadata']['state']['life_cycle_state']
+
+print(status)
+notebook_result = run_results['notebook_output']['result']
