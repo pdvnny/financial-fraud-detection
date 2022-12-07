@@ -81,4 +81,45 @@ print(response)
 response_dict = response.json()
 print(response_dict)
 
+"""
+THIRD
 
+Save information about the newly staged model in DBFS
+
+** IMPORTANT STRUCTURE **
+@ "dbfs:/FileStore/run_tracking/deployment/"
+there will be two models stored.
+(1) A model currently deployed
+(2) A model that might be deployed (this will be added in the second part here)
+"""
+"""
+Sample of 'response_dict'
+
+{'model_version_databricks': 
+    {
+        'name': 'model_606436540a50453b92fcafa33f417d5c_2022-12-07',
+        'version': '1', 
+        'creation_timestamp': 1670383029822, 
+        'last_updated_timestamp': 1670383070525, 
+        'user_id': '3277622445539731', 
+        'current_stage': 'Staging', 
+        'source': 'dbfs:/databricks/mlflow-tracking/3794168472159363/606436540a50453b92fcafa33f417d5c/artifacts/trained_model', 
+        'run_id': '606436540a50453b92fcafa33f417d5c', 
+        'status': 'READY'
+    }
+}
+"""
+
+# Create dictionary of the important information
+newly_registered_model = {
+    'name': response_dict['model_version_databricks']['name'],
+    'version': response_dict['model_version_databricks']['version']
+}
+
+# Save important information as a .json
+with open("model_data.json", 'w') as mdl_f:
+    json.dump(newly_registered_model, mdl_f)
+
+NEW_MODEL_PATH = DbfsPath("dbfs:/FileStore/deployment/new_model.json")
+put_response = dbfs_api.put_file("model_data.json", NEW_MODEL_PATH, overwrite=True)
+print(put_response)

@@ -6,7 +6,6 @@ Created Dec 6, 2022
 GOALS:
 (1) Use databricks-cli to run "unit_tests" job (the job should return True/False)
     depending on whether the tests pass
-
 """
 
 import os
