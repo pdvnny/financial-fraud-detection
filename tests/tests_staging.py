@@ -80,7 +80,7 @@ class test_ut:
 unitTests = test_ut()
 print(unitTests.test_tableExists())
 print(unitTests.test_columnExists())
-print(unitTests.test_numRowsInColumnForValue())
+print(unitTests.numRowsInColumnForValue())
 
 # COMMAND ----------
 
