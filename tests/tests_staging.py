@@ -73,14 +73,14 @@ class test_ut:
 # Is there at least one row for the value in the specified column?
     def test_numRowsInColumnForValue(self):
       #assert numRowsInColumnForValue(df, columnName, columnValue) > 0
-      return (test_numRowsInColumnForValue(df, columnName, columnValue) > 0)
+      return (numRowsInColumnForValue(df, columnName, columnValue) > 0)
 
 # COMMAND ----------
 
 unitTests = test_ut()
 print(unitTests.test_tableExists())
 print(unitTests.test_columnExists())
-print(unitTests.numRowsInColumnForValue())
+print(unitTests.test_numRowsInColumnForValue())
 
 # COMMAND ----------
 
