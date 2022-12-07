@@ -121,5 +121,5 @@ with open("model_data.json", 'w') as mdl_f:
     json.dump(newly_registered_model, mdl_f)
 
 NEW_MODEL_PATH = DbfsPath("dbfs:/FileStore/deployment/new_model.json")
-put_respone = dbfs_api.put_file("model_data.json", NEW_MODEL_PATH, overwrite=True)
+put_response = dbfs_api.put_file("model_data.json", NEW_MODEL_PATH, overwrite=True)
 print(put_response)
