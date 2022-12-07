@@ -49,14 +49,14 @@ unit_tests_run = jobs_api.run_now(800632553416329,
 
 run_results = runs_api.get_run_output(unit_tests_run["run_id"])
 status = run_results['metadata']['state']['life_cycle_state']
-while (status == 'PENDING'):
+while status == 'PENDING':
     time.sleep(2)
     run_results = runs_api.get_run_output(unit_tests_run["run_id"])
     status = run_results['metadata']['state']['life_cycle_state']
 
 print(status)
 
-while (status == 'RUNNING'):
+while status == 'RUNNING':
     time.sleep(2)
     run_results = runs_api.get_run_output(unit_tests_run["run_id"])
     status = run_results['metadata']['state']['life_cycle_state']
