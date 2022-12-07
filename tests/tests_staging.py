@@ -81,4 +81,4 @@ print(test_numRowsInColumnForValue())
 
 # COMMAND ----------
 
-dbutils.notebook.exit(f"{test_tableExists()} {test_columnExists()} {test_numRowsInColumnForValue()}")
+dbutils.notebook.exit(str(test_tableExists() and test_columnExists() and test_numRowsInColumnForValue()))
