@@ -13,7 +13,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  # job 1: "build" -- trains a new model an ensures that it meets some threshold for performance
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Configure databricks credentials and databricks_cli
+      - name: Configure python packages
         run: |
           python -m pip install --upgrade pip
           pip install databricks-cli --upgrade
@@ -40,7 +40,36 @@ jobs:
           export DATABRICKS_TOKEN=${{ secrets.DATABRICKS_TOKEN }}
           python databricks-triggers/train_eval.py
           python databricks-triggers/check_model.py
+    
+  unit-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
           
+      - name: Configure python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install databricks-cli --upgrade
+      
+      - name: Trigger unit tests to run in databricks
+        uses: databricks/run-notebook@v0
+        with:
+          local-notebook-path: tests/tests_staging.py
+          databricks-host: ${{ secrets.DATABRICKS_HOST }}
+          databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
+          existing-cluster-id: "1130-222406-lee92yy1"
+          run-name: "unit tests for CI"
+          access-control-list-json: >
+            [ { "group_name": "users", "permission_level": "CAN_VIEW" } ]
+          
+
 
 #   model_eval:
 #     runs-on: ubuntu-latest
