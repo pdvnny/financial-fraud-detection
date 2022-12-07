@@ -62,15 +62,15 @@ df = spark.sql(f"SELECT * FROM {dbName}.{tableName}")
 # COMMAND ----------
 
 class test_ut:
-    def test_tableExists():
+    def test_tableExists(self):
       assert tableExists(tableName, dbName) is True
 
 # Does the column exist?
-    def test_columnExists():
+    def test_columnExists(self):
       assert columnExists(df, columnName) is True
 
 # Is there at least one row for the value in the specified column?
-    def test_numRowsInColumnForValue():
+    def test_numRowsInColumnForValue(self):
       assert numRowsInColumnForValue(df, columnName, columnValue) > 0
 
 # COMMAND ----------
