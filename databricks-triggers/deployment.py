@@ -38,24 +38,55 @@ deployment_run = jobs_api.run_now(824332610962496,
 
 # Returns:
 # 'run_id' and 'number_in_job'
-# print(unit_tests_run)
+print(deployment_run)
 
 # -------------- GET RESULTS OF JOB -------------------
 # Get job results: https://docs.databricks.com/dev-tools/api/latest/jobs.html#operation/JobsRunsGet
 
-run_results = runs_api.get_run_output(deployment_run["run_id"])
-status = run_results['metadata']['state']['life_cycle_state']
-while status == 'PENDING':
-    time.sleep(2)
-    run_results = runs_api.get_run_output(unit_tests_run["run_id"])
-    status = run_results['metadata']['state']['life_cycle_state']
+# THIS STUFF DOESN'T WORK FOR A JOB WITH MULTIPLE NOTEBOOKS/TASKS
 
-print(status)
+# run_results = runs_api.get_run_output(deployment_run["run_id"])
+# status = run_results['metadata']['state']['life_cycle_state']
+# while status == 'PENDING':
+#     time.sleep(2)
+#     run_results = runs_api.get_run_output(unit_tests_run["run_id"])
+#     status = run_results['metadata']['state']['life_cycle_state']
+#
+# print(status)
+#
+# while status == 'RUNNING':
+#     time.sleep(2)
+#     run_results = runs_api.get_run_output(unit_tests_run["run_id"])
+#     status = run_results['metadata']['state']['life_cycle_state']
+#
+# print(status)
+# notebook_result = run_results['notebook_output']['result']
 
-while status == 'RUNNING':
-    time.sleep(2)
-    run_results = runs_api.get_run_output(unit_tests_run["run_id"])
-    status = run_results['metadata']['state']['life_cycle_state']
+# ERROR RECEIVED WHEN RUNNING MULTIPLE TASKS
 
-print(status)
-notebook_result = run_results['notebook_output']['result']
+# """
+# Traceback (most recent call last):
+#   File "/opt/hostedtoolcache/Python/3.9.15/x64/lib/python3.9/site-packages/databricks_cli/sdk/api_client.py", line 166, in perform_query
+#     resp.raise_for_status()
+#   File "/opt/hostedtoolcache/Python/3.9.15/x64/lib/python3.9/site-packages/requests/models.py", line 1021, in raise_for_status
+#     raise HTTPError(http_error_msg, response=self)
+# requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: ***/api/2.0/jobs/runs/get-output?run_id=62232
+#
+# During handling of the above exception, another exception occurred:
+#
+# Traceback (most recent call last):
+#   File "/home/runner/work/financial-fraud-detection/financial-fraud-detection/databricks-triggers/deployment.py", line 46, in <module>
+#     run_results = runs_api.get_run_output(deployment_run["run_id"])
+#   File "/opt/hostedtoolcache/Python/3.9.15/x64/lib/python3.9/site-packages/databricks_cli/runs/api.py", line 46, in get_run_output
+#     return self.client.get_run_output(run_id, version=version)
+#   File "/opt/hostedtoolcache/Python/3.9.15/x64/lib/python3.9/site-packages/databricks_cli/sdk/service.py", line 465, in get_run_output
+#     return self.client.perform_query(
+#   File "/opt/hostedtoolcache/Python/3.9.15/x64/lib/python3.9/site-packages/databricks_cli/sdk/api_client.py", line 174, in perform_query
+#     raise requests.exceptions.HTTPError(message, response=e.response)
+# requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: ***/api/2.0/jobs/runs/get-output?run_id=62232
+#  Response from server:
+#  { 'error_code': 'INVALID_PARAMETER_VALUE',
+#   'message': 'Retrieving the output of runs with multiple tasks is not '
+#              'supported. Please retrieve the output of each individual task '
+#              'run instead.'}
+# """
