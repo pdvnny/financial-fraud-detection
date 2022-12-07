@@ -37,7 +37,7 @@ print(model_name)
 from mlflow.store.artifact.models_artifact_repo import ModelsArtifactRepository
 import os
 
-model_uri = f"models:/{new_model_name}/Staging"
+model_uri = f"models:/{model_name}/Production"
 local_path = ModelsArtifactRepository(model_uri).download_artifacts("") # download model from remote registry
 
 requirements_path = os.path.join(local_path, "requirements.txt")
