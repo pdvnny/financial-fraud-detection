@@ -75,10 +75,11 @@ class test_ut:
 
 # COMMAND ----------
 
-print(test_tableExists())
-print(test_columnExists())
-print(test_numRowsInColumnForValue())
+unitTests = test_ut()
+print(unitTests.test_tableExists())
+print(unitTests.test_columnExists())
+print(unitTests.test_numRowsInColumnForValue())
 
 # COMMAND ----------
 
-dbutils.notebook.exit(str(test_tableExists() and test_columnExists() and test_numRowsInColumnForValue()))
+dbutils.notebook.exit(unitTests.test_tableExists() and unitTests.test_columnExists() and unitTests.test_numRowsInColumnForValue())
