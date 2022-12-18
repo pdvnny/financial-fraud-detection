@@ -25,7 +25,7 @@ The kinds of things we spent the most time developing...
 
 ## Description of the Service
 
-**NOTE**: We worked on this service in two separate workspaces - (1) Databricks-AWS and (2) Databricks-Azure workspaces. *This image and description are specific to the Databricks-AWS work*.
+**NOTE**: We worked on this service in two separate workspaces - (1) Databricks-AWS and (2) Databricks-Azure workspaces. **_This image and description are specific to the Databricks-AWS work_**.
 
 ![Databricks-AWS Financial Fraud Detection Service](images/ec528_ml_service_diagram_new.png)
 
