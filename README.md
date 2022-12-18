@@ -27,10 +27,6 @@ The kinds of things we spent the most time developing...
 
 **NOTE**: We worked on this service in two separate workspaces - (1) Databricks-AWS and (2) Databricks-Azure workspaces. **_This image and description are specific to the Databricks-AWS work_**.
 
-### Diagram
-
-![Databricks-AWS Financial Fraud Detection Service](images/ec528_ml_service_diagram_new.png)
-
 ### Conceptual Explanation
 
 The operations that we were working on are supposed to support the analysts and scientists who are trying to develop and deploy an ML model that can identify potential fraud from bank transactions. Ideally, the operations are modular and easily adaptable to other ML tasks as well.
@@ -61,6 +57,11 @@ The theoretical workflow is as follows:
 #### Changes that should be made in retrospect
 * `staging` code should be assumed to be tested and functional, meaning deployment scripts, workflows, jobs, etc. should be tested by this point. In paricular, this means deployment should have been attempted before reaching this step.
 * On the other hand, the model created during the testing process before code is moved to staged does not need to be used in production. The whole point of having these stages for the code is that the code in production can be used to regularly re-train models and update the model in production if needed.
+
+
+### Diagram
+
+![Databricks-AWS Financial Fraud Detection Service](images/ec528_ml_service_diagram_new.png)
 
 ### Step-by-step Explanation of the Implmentation
 
